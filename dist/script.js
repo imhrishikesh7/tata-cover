@@ -1,7 +1,9 @@
 var words = document.getElementsByClassName('word');
+var bdy=document.body;
 var wordArray = [];
 var currentWord = 0;
-
+let indx=0;
+var colorarr=["#E97724","#E5B418","#5C4C85"]
 words[currentWord].style.opacity = 1;
 for (var i = 0; i < words.length; i++) {
   splitLetters(words[i]);
@@ -30,11 +32,18 @@ function animateLetterOut(cw, i) {
 }
 
 function animateLetterIn(nw, i) {
-  setTimeout(function() {
-		nw[i].className = 'letter in';
-  }, 340+(i*80));
-}
-
+    setTimeout(function () {
+      nw[i].className = 'letter in';
+    }, 340 + (i * 80));
+    setTimeout(function () {
+      if (i === nw.length - 1) {
+        bdy.style.background = colorarr[indx++];
+        if (indx === colorarr.length) {
+          indx = 0;
+        }
+      }
+    }, 200 + (i * 80));
+  }
 function splitLetters(word) {
   var content = word.innerHTML;
   word.innerHTML = '';
@@ -52,4 +61,3 @@ function splitLetters(word) {
 
 changeWord();
 setInterval(changeWord, 4500);
-
